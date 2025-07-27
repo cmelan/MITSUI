@@ -1,0 +1,21 @@
+# Ignore data, models, and outputs
+/data/
+/models/
+/outputs/
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Environment files
+.env
+.venv
+
+# OS files
+.DS_Store
+Thumbs.db 
