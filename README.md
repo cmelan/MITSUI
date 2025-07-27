@@ -251,4 +251,4 @@ Predict **424 different targets** consisting of:
 - [Optuna Documentation](https://optuna.readthedocs.io/)
 
 ## License
-This project is for educational and competition purposes. Please refer to the Kaggle competition terms and conditions. 
+This project is for educational and competition purposes. Please refer to the Kaggle competition terms and conditions.
