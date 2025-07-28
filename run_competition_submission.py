@@ -120,8 +120,29 @@ def main():
         X_train = train_merged[feature_cols]
         y_train = train_merged[target_cols]
         
+        # Handle NaN values in targets
+        print(f"   🔧 Handling NaN values in targets...")
+        nan_counts = y_train.isnull().sum()
+        print(f"   📊 NaN counts per target: min={nan_counts.min()}, max={nan_counts.max()}, mean={nan_counts.mean():.1f}")
+        
+        # Strategy 1: Remove rows with any NaN targets (conservative)
+        # Strategy 2: Fill NaN with forward fill then backward fill
+        # Strategy 3: Fill NaN with 0 (simple)
+        
+        # Use Strategy 2: Forward fill then backward fill
+        y_train_clean = y_train.fillna(method='ffill').fillna(method='bfill')
+        
+        # If still have NaN, fill with 0
+        if y_train_clean.isnull().any().any():
+            print(f"   ⚠️ Some NaN values remain, filling with 0")
+            y_train_clean = y_train_clean.fillna(0)
+        
+        # Update y_train
+        y_train = y_train_clean
+        
         print(f"   ✅ Data prepared in {time.time() - prep_start:.1f} seconds")
         print(f"   📊 X_train: {X_train.shape}, y_train: {y_train.shape}")
+        print(f"   ✅ NaN values handled")
         
         # Model training
         print(f"\n🚀 Training competition model...")
@@ -167,8 +188,12 @@ def main():
         
         cv_scores = []
         for i, (X_cv_train, y_cv_train, X_cv_val, y_cv_val) in enumerate(cv_splits):
+            # Handle NaN in CV data
+            y_cv_train_clean = y_cv_train.fillna(method='ffill').fillna(method='bfill').fillna(0)
+            y_cv_val_clean = y_cv_val.fillna(method='ffill').fillna(method='bfill').fillna(0)
+            
             cv_model = MultiOutputRegressor(lgb.LGBMRegressor(**lgb_params))
-            cv_model.fit(X_cv_train, y_cv_train)
+            cv_model.fit(X_cv_train, y_cv_train_clean)
             y_cv_pred = cv_model.predict(X_cv_val)
             
             # Evaluate stability

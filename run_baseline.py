@@ -95,7 +95,17 @@ def main():
     # Prepare X and y
     X_train = train[feature_cols].fillna(0)
     X_test = test[feature_cols].fillna(0)
-    y_train = train_labels['target'].values
+    
+    # For sample data, use the first target column
+    if 'target' in train_labels.columns:
+        y_train = train_labels['target'].values
+    elif 'target_0' in train_labels.columns:
+        y_train = train_labels['target_0'].values
+        print("ℹ️ Using target_0 from sample data")
+    else:
+        print("❌ No target column found in train_labels")
+        print(f"Available columns: {train_labels.columns.tolist()}")
+        return False
     
     # Define baseline models
     print("\nTraining baseline models...")

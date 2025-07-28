@@ -1,223 +1,148 @@
-# Kaggle Competition Submission Guide
+# MITSUI&CO. Commodity Prediction Challenge - Submission Guide
 
-## 🚀 Making Your First Submission
+## Overview
+This guide provides three different submission approaches for the MITSUI competition, each with increasing complexity and potential performance.
 
-### Step 1: Prepare Your Files
+## Submission Options
 
-You have several submission options:
+### 1. **Basic Submission** (`kaggle_submission_code.txt`)
+**Best for:** Getting started, understanding the competition structure
+- **Approach:** Uses lag values with minimal noise
+- **Complexity:** Low
+- **Expected Score:** ~11318101831830900.000 (baseline)
+- **Pros:** Simple, fast, guaranteed to work
+- **Cons:** Basic performance, no real modeling
 
-1. **Use the generated submission file:**
-   ```bash
-   # Your current submission file
-   outputs/competition_submission.csv
-   ```
+### 2. **Improved Submission** (`kaggle_improved_submission.py`)
+**Best for:** Better performance with real machine learning
+- **Approach:** Uses LightGBM models trained on actual features
+- **Complexity:** Medium
+- **Expected Score:** Better than baseline
+- **Pros:** Real machine learning, better performance
+- **Cons:** Takes longer to train, more complex
 
-2. **Use the notebook template:**
-   ```bash
-   # Competition-ready notebook
-   notebooks/first_submission.ipynb
-   ```
+### 3. **Ensemble Submission** (`kaggle_ensemble_submission.py`)
+**Best for:** Maximum performance with model diversity
+- **Approach:** Combines LightGBM, XGBoost, Random Forest, and Ridge
+- **Complexity:** High
+- **Expected Score:** Best performance
+- **Pros:** Model diversity, robust predictions
+- **Cons:** Slowest, most complex
 
-3. **Run the submission pipeline:**
-   ```bash
-   # Generate fresh submission
-   python run_competition_submission.py
-   ```
+### 4. **Advanced Submission** (`kaggle_advanced_submission.py`)
+**Best for:** Sophisticated approach with feature engineering
+- **Approach:** Feature engineering + optimized LightGBM
+- **Complexity:** Very High
+- **Expected Score:** Potentially best performance
+- **Pros:** Advanced features, optimized models
+- **Cons:** Most complex, may have memory issues
 
-### Step 2: Choose Your Submission Method
+## How to Submit
 
-#### Option A: Notebook Submission (Recommended)
-1. **Upload the notebook:**
-   - Go to the competition's "Notebooks" tab
-   - Click "New Notebook"
-   - Upload `notebooks/first_submission.ipynb`
+### Step 1: Choose Your Submission
+1. **For beginners:** Start with `kaggle_submission_code.txt`
+2. **For intermediate:** Try `kaggle_improved_submission.py`
+3. **For advanced:** Use `kaggle_ensemble_submission.py` or `kaggle_advanced_submission.py`
 
-2. **Run the notebook:**
-   - Click "Run All" to execute the entire notebook
-   - Wait for completion (should be < 8 hours)
-   - The notebook will generate `submission.csv`
+### Step 2: Upload to Kaggle
+1. Go to [kaggle.com](https://www.kaggle.com)
+2. Navigate to the [MITSUI Competition](https://www.kaggle.com/competitions/mitsui-commodity-prediction-challenge)
+3. Click "Notebooks" → "New Notebook"
+4. Copy the chosen submission code
+5. Paste into the notebook
+6. Click "Save & Run All"
+7. Submit to competition
 
-3. **Submit:**
-   - Click "Submit" button
-   - Add a description: "First submission - Memory-efficient LightGBM with feature selection"
-   - Confirm submission
+## Expected Results
 
-#### Option B: Direct File Upload
-1. **Prepare submission file:**
-   - Use `outputs/competition_submission.csv`
-   - Ensure it has the correct format (date_id, target_0, target_1, etc.)
+| Submission Type | Expected Score | Training Time | Complexity |
+|----------------|----------------|---------------|------------|
+| Basic | ~11318101831830900.000 | < 1 minute | Low |
+| Improved | Better than baseline | 5-10 minutes | Medium |
+| Ensemble | Best performance | 15-30 minutes | High |
+| Advanced | Potentially best | 20-40 minutes | Very High |
 
-2. **Upload:**
-   - Go to "Submissions" tab
-   - Click "Submit Predictions"
-   - Upload your CSV file
-   - Add description and submit
+## Troubleshooting
 
-### Step 3: Submission Requirements Checklist
+### Common Issues:
+1. **Memory errors:** Use Basic or Improved submission
+2. **Timeout errors:** Reduce model complexity
+3. **Package errors:** Ensure all packages are installed
 
-Before submitting, ensure:
+### Performance Tips:
+1. **Start simple:** Begin with Basic submission
+2. **Test locally:** Run code in development mode first
+3. **Monitor resources:** Watch for memory/timeout issues
+4. **Iterate:** Try different approaches and compare
 
-✅ **File Format:**
-- CSV file with correct column names
-- `date_id` column for test dates
-- All target columns (target_0, target_1, etc.)
-- No missing values
+## Next Steps for Improvement
 
-✅ **Runtime Compliance:**
-- Notebook execution < 8 hours
-- Memory usage < 16 GB
-- No external API calls
+### After Basic Submission Works:
+1. **Feature Engineering:** Add rolling statistics, lag features
+2. **Model Tuning:** Optimize hyperparameters
+3. **Ensemble Methods:** Combine multiple models
+4. **Cross-Validation:** Use proper validation strategies
 
-✅ **Content Requirements:**
-- Complete reproducibility
-- Clear documentation
-- No rule violations
+### Advanced Techniques:
+1. **Time Series Features:** Add seasonal, trend features
+2. **Domain Knowledge:** Incorporate financial market insights
+3. **Neural Networks:** Try deep learning approaches
+4. **Meta-Learning:** Learn from multiple targets
 
-### Step 4: Submission Process
-
-1. **Go to Competition Page:**
-   ```
-   https://www.kaggle.com/competitions/mitsui-commodity-prediction-challenge
-   ```
-
-2. **Navigate to Submissions:**
-   - Click "Submissions" tab
-   - Click "Submit Predictions"
-
-3. **Upload Your File:**
-   - Choose your submission file
-   - Add a descriptive name
-   - Add description of your approach
-
-4. **Submit:**
-   - Review your submission
-   - Click "Submit"
-   - Wait for processing
-
-### Step 5: Monitor Your Submission
-
-After submission:
-
-1. **Check Status:**
-   - Go to "Submissions" tab
-   - Look for your submission status
-   - Wait for processing to complete
-
-2. **View Results:**
-   - Once processed, you'll see your score
-   - Check the leaderboard position
-   - Review any error messages
-
-3. **Iterate:**
-   - Based on results, improve your model
-   - Make new submissions (max 5 per day)
-   - Select your best 2 for final judging
-
-## 📊 Submission File Format
-
-Your submission should look like this:
-
-```csv
-date_id,target_0,target_1,target_2,target_3
-2023-01-01,-0.795738188655924,-0.6084743018575822,-0.13590205384240575,0.49025769022747595
-2023-01-02,-0.3218510465038691,-0.6172046184328013,-0.10948434304675742,0.3491788462997239
-...
+## File Structure
+```
+├── kaggle_submission_code.txt      # Basic submission
+├── kaggle_improved_submission.py   # Improved with LightGBM
+├── kaggle_ensemble_submission.py   # Ensemble of multiple models
+├── kaggle_advanced_submission.py   # Advanced with feature engineering
+└── SUBMISSION_GUIDE.md            # This guide
 ```
 
-**Requirements:**
-- `date_id`: Test dates in YYYY-MM-DD format
-- `target_X`: Predictions for each target (424 total in real competition)
-- No missing values
-- Numeric predictions (can be negative)
+## Competition Understanding
 
-## 🎯 Competition Strategy
+### Key Insights:
+- **Custom Evaluation:** Uses gateway interface, not CSV submission
+- **Batch Processing:** Each date_id processed individually
+- **Lagged Labels:** Test labels available for prediction
+- **424 Targets:** Multi-target prediction challenge
+- **Real-time:** Predictions generated on-demand
 
-### First Submission Goals:
-1. **Establish Baseline:** Get a working submission
-2. **Validate Pipeline:** Ensure everything works correctly
-3. **Check Compliance:** Verify runtime and memory limits
-4. **Get Feedback:** See initial performance
+### Data Structure:
+- **train.csv:** Training features
+- **test.csv:** Test features
+- **train_labels.csv:** Training targets
+- **lagged_test_labels/:** Test labels with lags 1-4
 
-### Iteration Strategy:
-1. **Week 1:** Focus on getting a working submission
-2. **Week 2:** Optimize for memory and runtime
-3. **Week 3:** Improve model performance
-4. **Week 4:** Advanced feature engineering
-5. **Week 5-6:** Ensemble methods and tuning
-6. **Week 7-8:** Final optimization and submission
+## Success Metrics
+- **Primary:** Competition score (lower is better)
+- **Secondary:** Training time, memory usage
+- **Tertiary:** Code complexity, maintainability
 
-## 🚨 Common Issues and Solutions
+## Recommendations
 
-### Issue: "Runtime exceeded"
-**Solution:**
-- Reduce feature count (use 500 instead of 1977)
-- Use conservative model parameters
-- Limit cross-validation during submission
+### For Beginners:
+1. Start with Basic submission
+2. Understand the gateway interface
+3. Experiment with simple changes
+4. Graduate to Improved submission
 
-### Issue: "Memory exceeded"
-**Solution:**
-- Use memory optimization functions
-- Reduce data types (float32 instead of float64)
-- Process in smaller batches
+### For Intermediate Users:
+1. Use Improved or Ensemble submission
+2. Focus on feature engineering
+3. Experiment with different models
+4. Optimize hyperparameters
 
-### Issue: "File format error"
-**Solution:**
-- Check column names match exactly
-- Ensure no missing values
-- Verify date format is correct
+### For Advanced Users:
+1. Use Advanced submission as starting point
+2. Implement custom feature engineering
+3. Try sophisticated ensemble methods
+4. Incorporate domain knowledge
 
-### Issue: "Submission failed"
-**Solution:**
-- Check for external API calls
-- Ensure all dependencies are available
-- Verify code runs without errors
+## Support
+If you encounter issues:
+1. Check the competition discussion forum
+2. Review the gateway documentation
+3. Test with simpler approaches first
+4. Monitor resource usage carefully
 
-## 📈 Performance Tracking
-
-### Track These Metrics:
-- **Public Score:** Visible during competition
-- **Runtime:** Should be < 8 hours
-- **Memory Usage:** Should be < 16 GB
-- **Submission Count:** Max 5 per day
-
-### Success Indicators:
-- ✅ Submission processes successfully
-- ✅ Runtime < 6 hours (2-hour buffer)
-- ✅ Memory usage < 12 GB
-- ✅ Score improves over time
-- ✅ No overfitting to public leaderboard
-
-## 🏆 Final Submission Strategy
-
-### Selecting Your 2 Final Submissions:
-1. **Best Public Score:** Your highest-scoring submission
-2. **Most Stable:** Submission with best private leaderboard potential
-3. **Diverse Approach:** Different model architectures
-4. **Robust Validation:** Well-validated approach
-
-### Final Week Checklist:
-- [ ] Select your 2 final submissions
-- [ ] Ensure reproducibility
-- [ ] Complete documentation
-- [ ] Test submission process
-- [ ] Monitor leaderboard changes
-
-## 📞 Getting Help
-
-### Resources:
-- **Competition Discussion:** Ask questions in the forum
-- **Official Discord:** Join for real-time support
-- **Documentation:** Review competition rules
-- **Public Notebooks:** Study successful approaches
-
-### When to Ask for Help:
-- Submission fails repeatedly
-- Runtime/memory issues persist
-- Unclear error messages
-- Need clarification on rules
-
----
-
-**Remember:** Your first submission is about getting something working. Don't worry about perfect performance initially. Focus on establishing a solid foundation and then iterate to improve.
-
-**Good luck with your submission!** 🚀 
+Good luck with your submission! 🚀 
